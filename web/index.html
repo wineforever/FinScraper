@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FinScraper - 财务报告抓取</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <main class="page">
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">FinScraper</p>
+        <h1>财务报告抓取与批量下载</h1>
+        <p class="lead">输入股票代码或名称，筛选年报/季报/中报，直接下载PDF。</p>
+      </div>
+      <div class="hero-card">
+        <div>
+          <p class="card-label">数据源</p>
+          <p class="card-value">Sina Finance</p>
+        </div>
+        <div>
+          <p class="card-label">输出格式</p>
+          <p class="card-value">PDF</p>
+        </div>
+        <div>
+          <p class="card-label">支持模式</p>
+          <p class="card-value">单个 / 批量</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="searchForm" class="search-form">
+        <div class="field">
+          <label for="query">股票代码或名称</label>
+          <input id="query" name="query" type="text" placeholder="例如：603325 或 浦发银行" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="reportType">报告类型</label>
+          <select id="reportType" name="reportType">
+            <option value="all">全部类型</option>
+            <option value="ndbg">年报</option>
+            <option value="yjdbg">一季报</option>
+            <option value="zqbg">中报</option>
+            <option value="sjdbg">三季报</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="year">年份</label>
+          <select id="year" name="year">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <button class="primary" type="submit">开始抓取</button>
+      </form>
+      <div id="status" class="status">准备就绪</div>
+    </section>
+
+    <section class="results">
+      <div class="results-header">
+        <div>
+          <h2>报告列表</h2>
+          <p id="summary" class="summary">请先查询报告。</p>
+        </div>
+        <button id="downloadSelected" class="ghost" disabled>批量下载选中</button>
+      </div>
+
+      <div id="loading" class="loading hidden">正在抓取，请稍候...</div>
+      <div id="emptyState" class="empty hidden">没有匹配的报告，请尝试其他年份或类型。</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"><input id="checkAll" type="checkbox" /></th>
+              <th class="col-date">公告日期</th>
+              <th>报告标题</th>
+              <th class="col-action">操作</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>FinScraper · 财务报告抓取助手</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
